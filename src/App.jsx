@@ -1,28 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react';
+import Header from './components/Header';
+import Sections from './components/Sections';
+import Gallery from './components/Gallery';
+import ContactFooter from './components/ContactFooter';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (darkMode) {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+    <div className="scroll-smooth bg-[#f8f7fb] dark:bg-[#0b0b0e] text-[#222222] dark:text-zinc-100 min-h-screen">
+      <Header darkMode={darkMode} onToggleDark={() => setDarkMode((v) => !v)} />
+      <main>
+        <Sections />
+        <Gallery />
+        <ContactFooter />
+      </main>
     </div>
-  )
+  );
 }
-
-export default App
